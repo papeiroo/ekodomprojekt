@@ -536,6 +536,23 @@ a.sk-final:hover .sk-go i{transform:translateX(3px)}
 @keyframes refabRing{0%{transform:scale(.92);opacity:.9}100%{transform:scale(1.25);opacity:0}}
 @media (max-width:700px){.refab{bottom:calc(84px + env(safe-area-inset-bottom,0px));height:48px;padding:0 11px}.refab .gift{width:24px;height:24px}}
 @media (prefers-reduced-motion:reduce){.refab .gift,.refab::after{animation:none}}
+
+/* jeden rozmiar zdjęć w łuku: strona główna + podstrony usług */
+:root{--archW:400px}
+@media (min-width:901px){.hero-grid,.svc-hero-grid{grid-template-columns:minmax(0,1fr) var(--archW)!important}#top .hero h1{font-size:clamp(30px,3vw,44px)}.svc-facts span{white-space:normal!important}.svc-facts div{min-width:0}}
+.arch{width:min(var(--archW),100%)!important;max-width:none!important}
+.svc-visual{width:min(var(--archW),100%)!important;max-width:none!important;justify-self:end}
+.svc-photo{width:100%;aspect-ratio:4/5}
+.seal{left:calc(50% - var(--archW)/2 - 66px)}
+@media (max-width:1100px) and (min-width:901px){:root{--archW:360px}}
+@media (max-width:900px){:root{--archW:340px}.svc-visual{justify-self:center}.seal{left:-10px}}
+
+.sk-how{margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid rgba(230,198,119,.55);color:#e6c677;font:500 14.5px var(--f-ui);text-decoration:none;transition:background .25s,color .25s}
+.sk-how svg{width:18px;height:18px}
+.sk-how:hover{background:#e6c677;color:#10291e}
+.level.flash{animation:lvFlash 1.6s ease}
+@keyframes lvFlash{0%{box-shadow:0 0 0 0 rgba(230,198,119,0)}15%{box-shadow:0 0 0 3px #e6c677,0 0 34px 6px rgba(230,198,119,.55);border-color:#e6c677;background:rgba(230,198,119,.18)}45%{box-shadow:0 0 0 2px rgba(230,198,119,.6),0 0 18px 2px rgba(230,198,119,.3)}100%{box-shadow:0 0 0 0 rgba(230,198,119,0)}}
+@media (max-width:640px){.sk-how{margin-left:0}}
 /* footer */
 .foot-hero{background:#f1f5ef;position:relative;overflow:hidden;padding:56px 0 0!important;margin-top:0}
 .fh-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none}
@@ -1068,6 +1085,9 @@ footer ul{gap:12px}
 .cat:first-child{grid-column:1/-1;background:linear-gradient(120deg,var(--gold-soft),var(--paper) 70%)}
 .cat .ci{width:52px;height:52px;border-radius:50%;background:var(--sage);display:grid;place-items:center;color:var(--green)}
 .cat .ci svg{width:28px;height:28px}
+.cat .ci.ci-img{width:64px;height:64px;flex:none;background:#fff;border:1px solid rgba(201,162,76,.55);overflow:hidden;box-shadow:0 8px 18px -12px rgba(16,41,30,.45)}
+.cat .ci.ci-img img{width:100%;height:100%;object-fit:contain;padding:6px;transform:scale(1.12);transition:transform .4s}
+.cat:hover .ci.ci-img img{transform:scale(1.24)}
 .cat b{display:block;font:500 20px/1.2 var(--f-display)}
 .cat small{font-size:13px;color:var(--ink-soft)}
 .cat i{font-style:normal;color:var(--gold);font-size:20px}
@@ -1651,11 +1671,11 @@ footer ul{gap:12px}
 
     <div class="skalk" id="dotacje-stawki">
       <div class="sk-head">
-        <div><span class="eyebrow">Kalkulator dotacji</span><h3 class="h3" style="margin-top:12px">Policz dotację na <em>modernizację domu</em></h3></div>
-        <p class="sk-lead">Wybierz poziom, wpisz metry i zaznacz prace. Liczymy według maksymalnych kwot Czystego Powietrza obowiązujących od 20 lipca 2026. Przykład: 100 m² ścian × 275 zł = 27 500 zł.</p>
+        <div><span class="eyebrow">Kalkulator dotacji</span><h3 class="h3" style="margin-top:12px">Policz dotację na <em>termomodernizację domu</em></h3></div>
+        <p class="sk-lead">Wybierz poziom, wpisz metry i zaznacz prace. Liczymy według kwot z Twojego poziomu dofinansowania dla Czystego Powietrza obowiązujących od 20 lipca 2026. Przykładowo dla poziomu najwyższego: 100 m² ścian × 275 zł = 27 500 zł.</p>
       </div>
-      <div class="sk-lv" id="sk-lv"><span class="sk-lv-l" id="sk-lv-l">Twój poziom dofinansowania</span><div class="seg sk-seg" role="group" aria-labelledby="sk-lv-l"><button type="button" aria-pressed="false" data-i="0">Podstawowy</button><button type="button" aria-pressed="false" data-i="1">Podwyższony</button><button type="button" aria-pressed="false" data-i="2">Najwyższy</button></div><div class="sk-tip" id="sk-tip" role="alert" hidden>Najpierw wybierz swój poziom dofinansowania. Od niego zależą stawki za m².</div></div>
-      <div class="sk-ep"><span class="sk-lv-l" id="sk-ep-l">Zapotrzebowanie domu na energię (EP z audytu)</span><div class="seg sk-seg2" role="group" aria-labelledby="sk-ep-l"><button type="button" aria-pressed="true" data-ep="2">powyżej 140 kWh/m²</button><button type="button" aria-pressed="false" data-ep="1">80–140 kWh/m²</button><button type="button" aria-pressed="false" data-ep="0">poniżej 80 kWh/m²</button></div><small>Typowy nieocieplony dom ma powyżej 140 kWh/m² rocznie. Dokładną wartość poda audyt.</small></div>
+      <div class="sk-lv" id="sk-lv"><span class="sk-lv-l" id="sk-lv-l">Twój poziom dofinansowania</span><div class="seg sk-seg" role="group" aria-labelledby="sk-lv-l"><button type="button" aria-pressed="false" data-i="0">Podstawowy</button><button type="button" aria-pressed="false" data-i="1">Podwyższony</button><button type="button" aria-pressed="false" data-i="2">Najwyższy</button></div><a class="sk-how" href="#dotacje-poziomy" id="sk-how"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M7.7 7.6a2.4 2.4 0 1 1 3.3 2.2c-.7.3-1 .8-1 1.5v.6M10 14.4v.1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Jak obliczyć?</a><div class="sk-tip" id="sk-tip" role="alert" hidden>Najpierw wybierz swój poziom dofinansowania. Od niego zależą stawki za m².</div></div>
+      
       <div class="sk-group"><p class="sk-gh"><span>1</span>Ocieplenie, stolarka i wentylacja</p>
       <div class="sk-table"><div class="sk-row sk-th"><span>Zakres prac</span><span>Stawka</span><span>Ilość</span><span>Dotacja</span></div><div class="sk-row" data-k="sc" data-r="110,193,275" data-step="5"><div class="sk-name"><b>Ściany zewnętrzne</b><span>ocieplenie ścian</span></div><div class="sk-rate"><b data-rate>—</b><small>zł / m²</small></div><div class="sk-in"><button type="button" class="sk-step" data-d="-1" aria-label="Mniej">−</button><input type="number" inputmode="decimal" min="0" max="2000" step="1" value="0" aria-label="Ściany zewnętrzne – ilość"><span>m²</span><button type="button" class="sk-step" data-d="1" aria-label="Więcej">+</button></div><div class="sk-sum"><b data-sum>—</b></div></div><div class="sk-row" data-k="st" data-r="88,154,220" data-step="5"><div class="sk-name"><b>Strop, poddasze lub dach</b><span>ocieplenie od strony nieogrzewanej</span></div><div class="sk-rate"><b data-rate>—</b><small>zł / m²</small></div><div class="sk-in"><button type="button" class="sk-step" data-d="-1" aria-label="Mniej">−</button><input type="number" inputmode="decimal" min="0" max="2000" step="1" value="0" aria-label="Strop, poddasze lub dach – ilość"><span>m²</span><button type="button" class="sk-step" data-d="1" aria-label="Więcej">+</button></div><div class="sk-sum"><b data-sum>—</b></div></div><div class="sk-row" data-k="pd" data-r="66,116,165" data-step="5"><div class="sk-name"><b>Podłoga na gruncie</b><span>ocieplenie podłogi</span></div><div class="sk-rate"><b data-rate>—</b><small>zł / m²</small></div><div class="sk-in"><button type="button" class="sk-step" data-d="-1" aria-label="Mniej">−</button><input type="number" inputmode="decimal" min="0" max="2000" step="1" value="0" aria-label="Podłoga na gruncie – ilość"><span>m²</span><button type="button" class="sk-step" data-d="1" aria-label="Więcej">+</button></div><div class="sk-sum"><b data-sum>—</b></div></div><div class="sk-row" data-k="ok" data-r="528,924,1320" data-step="1"><div class="sk-name"><b>Okna i drzwi balkonowe</b><span>stolarka o wymaganych parametrach</span></div><div class="sk-rate"><b data-rate>—</b><small>zł / m²</small></div><div class="sk-in"><button type="button" class="sk-step" data-d="-1" aria-label="Mniej">−</button><input type="number" inputmode="decimal" min="0" max="2000" step="1" value="0" aria-label="Okna i drzwi balkonowe – ilość"><span>m²</span><button type="button" class="sk-step" data-d="1" aria-label="Więcej">+</button></div><div class="sk-sum"><b data-sum>—</b></div></div><div class="sk-row" data-k="ot" data-r="53,92,132" data-step="1"><div class="sk-name"><b>Prace przy oknach</b><span>parapety, obróbki, montaż (w limicie okien)</span></div><div class="sk-rate"><b data-rate>—</b><small>zł / m²</small></div><div class="sk-in"><button type="button" class="sk-step" data-d="-1" aria-label="Mniej">−</button><input type="number" inputmode="decimal" min="0" max="2000" step="1" value="0" aria-label="Prace przy oknach – ilość"><span>m²</span><button type="button" class="sk-step" data-d="1" aria-label="Więcej">+</button></div><div class="sk-sum"><b data-sum>—</b></div></div><div class="sk-row" data-k="dz" data-r="1100,1925,2750" data-step="1"><div class="sk-name"><b>Drzwi zewnętrzne</b><span>drzwi wejściowe</span></div><div class="sk-rate"><b data-rate>—</b><small>zł / m²</small></div><div class="sk-in"><button type="button" class="sk-step" data-d="-1" aria-label="Mniej">−</button><input type="number" inputmode="decimal" min="0" max="2000" step="1" value="0" aria-label="Drzwi zewnętrzne – ilość"><span>m²</span><button type="button" class="sk-step" data-d="1" aria-label="Więcej">+</button></div><div class="sk-sum"><b data-sum>—</b></div></div><div class="sk-row" data-k="br" data-r="660,1155,1650" data-step="1"><div class="sk-name"><b>Brama garażowa</b><span>w ogrzewanym garażu</span></div><div class="sk-rate"><b data-rate>—</b><small>zł / m²</small></div><div class="sk-in"><button type="button" class="sk-step" data-d="-1" aria-label="Mniej">−</button><input type="number" inputmode="decimal" min="0" max="2000" step="1" value="0" aria-label="Brama garażowa – ilość"><span>m²</span><button type="button" class="sk-step" data-d="1" aria-label="Więcej">+</button></div><div class="sk-sum"><b data-sum>—</b></div></div><div class="sk-row" data-k="wm" data-r="6680,11690,16700" data-step="1"><div class="sk-name"><b>Wentylacja z rekuperacją</b><span>centralna instalacja z odzyskiem ciepła</span></div><div class="sk-rate"><b data-rate>—</b><small>zł / szt.</small></div><div class="sk-in"><button type="button" class="sk-step" data-d="-1" aria-label="Mniej">−</button><input type="number" inputmode="decimal" min="0" max="2000" step="1" value="0" aria-label="Wentylacja z rekuperacją – ilość"><span>szt.</span><button type="button" class="sk-step" data-d="1" aria-label="Więcej">+</button></div><div class="sk-sum"><b data-sum>—</b></div></div><div class="sk-row" data-k="wr" data-r="800,1400,2000" data-step="1"><div class="sk-name"><b>Rekuperatory ścienne</b><span>wentylacja z odzyskiem ciepła, na sztuki</span></div><div class="sk-rate"><b data-rate>—</b><small>zł / szt.</small></div><div class="sk-in"><button type="button" class="sk-step" data-d="-1" aria-label="Mniej">−</button><input type="number" inputmode="decimal" min="0" max="2000" step="1" value="0" aria-label="Rekuperatory ścienne – ilość"><span>szt.</span><button type="button" class="sk-step" data-d="1" aria-label="Więcej">+</button></div><div class="sk-sum"><b data-sum>—</b></div></div></div></div>
       <div class="sk-group"><p class="sk-gh"><span>2</span>Ogrzewanie</p>
@@ -2181,12 +2201,13 @@ footer ul{gap:12px}
     {id:'s2',img:'img/p/s2.jpg',c:'serwis',n:'Koncentrat do mycia skraplacza',d:'1 l, do jednostek zewnętrznych',p:45},
     {id:'s3',img:'img/p/s3.jpg',c:'serwis',n:'Taśma PCV do owijania instalacji',d:'Rolka 25 m, biała',p:9}
   ];
+  const CATIMG={klimatyzatory:'img/p/k1.jpg',rury:'img/p/r1.jpg',akcesoria:'img/p/a1.jpg',deszczowka:'img/p/d1.jpg',serwis:'img/p/sv1.jpg'};
   const catName=id=>(CATS.find(c=>c.id===id)||{}).name;
 
   // home category tiles
   document.getElementById('cats').innerHTML=CATS.map(c=>{
     const items=P.filter(p=>p.c===c.id),min=Math.min(...items.map(p=>p.p));
-    return '<a class="cat" href="#sklep-'+c.id+'"><span class="ci">'+ICON[c.id]+'</span><span><b>'+c.name+'</b><small>'+c.sub+' · od '+fmt(min)+'</small></span><i>→</i></a>';
+    return '<a class="cat" href="#sklep-'+c.id+'"><span class="ci'+(CATIMG[c.id]?' ci-img':'')+'">'+(CATIMG[c.id]?'<img src="'+CATIMG[c.id]+'" alt="" loading="lazy">':ICON[c.id])+'</span><span><b>'+c.name+'</b><small>'+c.sub+' · od '+fmt(min)+'</small></span><i>→</i></a>';
   }).join('');
 
   // cart (per-viewer convenience)
@@ -2819,7 +2840,7 @@ footer ul{gap:12px}
     const nW=c=>WORKS.filter(w=>w.c===c).length, nP=c=>P.filter(x=>x.c===c).length;
     const DD={
       sklep:{h:'Kategorie sklepu',items:CATS.map(c=>['#sklep-'+c.id,c.name]),all:['#sklep','Wszystkie produkty →']},
-      dotacje:{h:'Dotacje',items:[['#dotacje-poziomy','Poziomy dofinansowania'],['#dotacje-kalkulator','Kalkulator dotacji'],['#dotacje-stawki','Kalkulator modernizacji domu'],['#oferta-czyste-powietrze','Czyste Powietrze 2026'],['#oferta-czyste-powietrze--cp-zmiany','Nowe zasady 2026'],['#dotacje-operator','Operator programu'],['#dotacje-inne','Inne źródła wsparcia']],all:['#dotacje','Przejdź do dotacji →']},
+      dotacje:{h:'Dotacje',items:[['#dotacje-poziomy','Poziomy dofinansowania'],['#dotacje-kalkulator','Kalkulator dotacji'],['#dotacje-stawki','Kalkulator termomodernizacji domu'],['#oferta-czyste-powietrze','Czyste Powietrze 2026'],['#oferta-czyste-powietrze--cp-zmiany','Nowe zasady 2026'],['#dotacje-operator','Operator programu'],['#dotacje-inne','Inne źródła wsparcia']],all:['#dotacje','Przejdź do dotacji →']},
       audyt:{h:'Audyt energetyczny',items:[['#kalkulator-audytu','Mapa strat ciepła'],['#audyt-oferta','Oferta i cena audytu'],['#oferta-audyt','O audycie i cenie'],['#oferta-audyt--audyt-etapy','7 etapów audytu'],['#oferta-audyt--audyt-bledy','5 błędów przy termomodernizacji'],['#audyt-kalkulator','Kalkulator kosztu audytu']],all:['#kontakt','Zamów audyt →']},
       realizacje:{h:'Kategorie realizacji',items:WCATS.filter(c=>c.id!=='all'&&nW(c.id)).map(c=>['#realizacje-'+c.id,c.n]),all:['#realizacje','Wszystkie realizacje →']},
       biuro:{h:'Wirtualne biuro',items:[['#oferta-wirtualne-biuro--s-pakiety','Pakiety i ceny'],['#oferta-wirtualne-biuro--s-zakres','Co obejmuje usługa'],['#oferta-wirtualne-biuro--s-etapy','Jak to działa'],['#oferta-wirtualne-biuro--s-faq','Pytania i odpowiedzi']],all:['#oferta-wirtualne-biuro','Przejdź do oferty →']},
@@ -2855,7 +2876,7 @@ footer ul{gap:12px}
   /* kalkulator stawek Czyste Powietrze */
   (function(){const r=document.getElementById('dotacje-stawki');if(!r)return;
     const LIMS=[[0,0,0],[19200,33600,0],[33200,58100,83000]];let ep=2;const LIMf=()=>LIMS[ep][lv];const PCT=['40%','70%','100%'],grp=v=>String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,' '),fmt=v=>grp(v)+' zł';
-    let lv=2,locked=false,chosen=false;const act=()=>chosen||!!r.dataset.prev;const tip=r.querySelector('#sk-tip'),seg=r.querySelector('.sk-seg');let tipT;
+    let lv=2,locked=false,chosen=false;const act=()=>chosen;const tip=r.querySelector('#sk-tip'),seg=r.querySelector('.sk-seg');let tipT;
     const btns=[...r.querySelectorAll('.sk-seg button')],rows=[...r.querySelectorAll('.sk-row[data-k]')],sel=r.querySelector('#sk-src');
     const rate=row=>row.dataset.k==='src'?+sel.selectedOptions[0].dataset.r.split(',')[lv]:+row.dataset.r.split(',')[lv];
     function calc(){let t3=0,t2=0,t1=0;const on=act();
@@ -2876,7 +2897,8 @@ footer ul{gap:12px}
     const need=()=>{if(chosen)return false;tip.hidden=false;seg.classList.remove('need');void seg.offsetWidth;seg.classList.add('need');const rc=seg.getBoundingClientRect();if(rc.top<110||rc.bottom>innerHeight)seg.scrollIntoView({behavior:'smooth',block:'center'});clearTimeout(tipT);tipT=setTimeout(()=>tip.hidden=true,4500);return true};
     const hov=matchMedia('(hover: hover)').matches;
     r.querySelectorAll('.sk-seg2 button').forEach(b=>b.addEventListener('click',()=>{if(need())return;ep=+b.dataset.ep;r.querySelectorAll('.sk-seg2 button').forEach(x=>x.setAttribute('aria-pressed',x===b));calc()}));
-    btns.forEach(b=>{b.addEventListener('click',()=>{locked=true;chosen=true;r.classList.add('chosen');tip.hidden=true;seg.classList.remove('need');pick(b)});if(hov)b.addEventListener('mouseenter',()=>{if(!locked)pick(b)})});
+    btns.forEach(b=>b.addEventListener('click',()=>{locked=true;chosen=true;r.classList.add('chosen');tip.hidden=true;seg.classList.remove('need');pick(b)}));
+    r.querySelector('#sk-how').addEventListener('click',e=>{e.preventDefault();const lv=document.querySelector('#dotacje-poziomy .levels')||document.getElementById('dotacje-poziomy');lv.scrollIntoView({behavior:'smooth',block:'center'});const ls=document.querySelectorAll('#dotacje-poziomy .level');ls.forEach(x=>x.classList.remove('flash'));setTimeout(()=>ls.forEach((x,i)=>{setTimeout(()=>{x.classList.remove('flash');void x.offsetWidth;x.classList.add('flash')},i*180)}),550)});
     rows.forEach(row=>{if(row.dataset.k==='src'){sel.addEventListener('mousedown',e=>{if(!chosen){e.preventDefault();need()}});sel.addEventListener('focus',()=>{if(need())sel.blur()});sel.addEventListener('change',calc);return}
       const inp=row.querySelector('input');
       if(row.classList.contains('sk-tog')){inp.addEventListener('click',e=>{if(need())e.preventDefault()});inp.addEventListener('change',calc);return}
